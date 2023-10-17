@@ -1,0 +1,101 @@
+.macbook-pro {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .macbook-pro .div {
+    background-color: #ffffff;
+    height: 982px;
+    position: relative;
+    width: 1512px;
+  }
+  
+  .macbook-pro .frame-1 {
+    left: 10px !important;
+    position: absolute !important;
+    top: 10px !important;
+  }
+  
+  .macbook-pro .frame-2 {
+    align-items: center;
+    display: inline-flex;
+    gap: 11px;
+    left: 10px;
+    padding: 0px 9px;
+    position: absolute;
+    top: 86px;
+    transform: rotate(179.92deg);
+  }
+  
+  .macbook-pro .text-wrapper-2 {
+    color: #c21010;
+    font-family: "Inika-Bold", Helvetica;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    transform: rotate(179.22deg);
+    width: fit-content;
+  }
+  
+  .macbook-pro .CSMAG-logo {
+    height: 117px;
+    object-fit: cover;
+    position: relative;
+    transform: rotate(-179.92deg);
+    width: 159px;
+  }
+  
+  .macbook-pro .navbar {
+    align-items: center;
+    display: flex;
+    gap: 25px;
+    height: 85px;
+    justify-content: flex-end;
+    left: 740px;
+    padding: 20px 43px;
+    position: absolute;
+    top: 100px;
+    width: 761px;
+  }
+  
+  .macbook-pro .text-wrapper-3 {
+    color: #814343;
+    font-family: "Inika-Bold", Helvetica;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    text-align: center;
+    width: fit-content;
+  }
+  
+  .macbook-pro .text-wrapper-4 {
+    color: #814343;
+    font-family: "Inika-Bold", Helvetica;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    width: fit-content;
+  }
+  
+  .macbook-pro .text-wrapper-5 {
+    color: #000000;
+    font-family: "Inika-Bold", Helvetica;
+    font-size: 32px;
+    font-weight: 700;
+    left: 500px;
+    letter-spacing: 0;
+    line-height: normal;
+    mix-blend-mode: overlay;
+    position: absolute;
+    top: 256px;
+  }
+  

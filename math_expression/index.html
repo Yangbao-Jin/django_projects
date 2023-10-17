@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MathQuill 示例</title>
+    <!-- 引入 MathQuill CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="mathquill.css">
+    <style>
+        /* 定义容器元素的大小 */
+        #mathquill-editor {
+            width: 700px; /* 宽度 */
+            height: 300px; /* 高度 */
+            border: 1px solid #ccc; /* 边框样式，可选 */
+        }
+    </style>
+</head>
+<body>
+    <script src="./mathquill.js"></script>
+    <!-- 在这里创建一个容器来容纳 MathQuill 编辑器 -->
+    <div id="mathquill-editor"></div>
+        
+    
+    <!-- 显示数学公式的区域 -->
+    <div>
+        <p>数学公式：</p>
+        <p id="math-output"></p>
+    </div>
+
+    <!-- 引入 MathQuill JavaScript 文件 -->
+    <script src="mathquill.js"></script>
+    <script>
+        // 获取包含编辑器的 DOM 元素
+        var mathquillElement = document.getElementById('mathquill-editor');
+
+        // 初始化 MathQuill 编辑器
+        var mathField = MathQuill.getInterface(2).MathField(mathquillElement, {
+            spaceBehavesLikeTab: true,  // 可以使用空格键进行分隔
+            handlers: {
+                edit: function() {
+                    // 编辑内容发生变化时的处理
+                    var latex = mathField.latex(); // 获取 LaTeX 表达式
+                    document.getElementById('math-output').textContent = latex; // 在页面上显示 LaTeX 表达式
+                }
+            }
+        });
+    </script>
+</body>
+</html>

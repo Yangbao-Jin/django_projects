@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LISP Editor</title>
+    <style>
+        /* 基本样式 */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+        }
+        /* 括号匹配样式 */
+        .match {
+            background-color: #aaffaa;
+        }
+        .mismatch {
+            background-color: #ffaaaa;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="editor"></textarea>
+
+    <script>
+        const editor = document.getElementById("editor");
+
+        editor.addEventListener("input", highlightSyntax);
+        editor.addEventListener("input", matchBrackets);
+
+        function highlightSyntax() {
+            const code = editor.value;
+            const highlightedCode = code.replace(/\b\w+\b/g, '<span class="keyword">$&</span>');
+            editor.innerHTML = highlightedCode;
+        }
+
+        function matchBrackets() {
+            const code = editor.value;
+            const stack = [];
+            const bracketIndices = [];
+
+            for (let i = 0; i < code.length; i++) {
+                if (code[i] === '(') {
+                    stack.push(i);
+                } else if (code[i] === ')') {
+                    if (stack.length === 0) {
+                        bracketIndices.push(i);
+                    } else {
+                        stack.pop();
+                    }
+                }
+            }
+
+            const unmatchedBrackets = [...stack, ...bracketIndices];
+            const text = editor.value;
+
+            for (let i = 0; i < text.length; i++) {
+                if (unmatchedBrackets.includes(i)) {
+                    text[i] = '<span class="mismatch">' + text[i] + '</span>';
+                }
+            }
+
+            editor.innerHTML = text;
+        }
+    </script>
+</body>
+</html>

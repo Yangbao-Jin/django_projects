@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科学计算器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js"></script>
+    <style>
+        #mathOutput {
+            border: 1px solid #ccc;
+            height: 60px;
+            padding: 10px;
+            width: 350px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 50px;
+            height: 50px;
+            font-size: 16px;
+            margin: 2px;
+        }
+        .display {
+            min-height: 60px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="display" id="mathDisplay"></div>
+<textarea id="mathOutput" style="width:350px; height:60px;"></textarea>
+
+<div>
+    <!-- 数字和基本运算 -->
+    <button onclick="appendToOutput('1')">1</button>
+    <button onclick="appendToOutput('2')">2</button>
+    <button onclick="appendToOutput('3')">3</button>
+    <button onclick="appendToOutput('+')">+</button>
+    <br>
+    <button onclick="appendToOutput('4')">4</button>
+    <button onclick="appendToOutput('5')">5</button>
+    <button onclick="appendToOutput('6')">6</button>
+    <button onclick="appendToOutput('-')">−</button>
+    <br>
+    <button onclick="appendToOutput('7')">7</button>
+    <button onclick="appendToOutput('8')">8</button>
+    <button onclick="appendToOutput('9')">9</button>
+    <button onclick="appendToOutput('*')">×</button>
+    <br>
+    <button onclick="appendToOutput('0')">0</button>
+    <button onclick="appendToOutput('.')">.</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="appendToOutput('/')">÷</button>
+    <br>
+    <button onclick="appendToOutput('(')">(</button>
+    <button onclick="appendToOutput(')')">)</button>
+    <button onclick="clearOutput()">C</button>
+    <button onclick="appendToOutput('^')">^</button>
+    <br>
+    <!-- 高级运算 -->
+    <button onclick="appendToOutput('\\sin(')">sin</button>
+    <button onclick="appendToOutput('\\cos(')">cos</button>
+    <button onclick="appendToOutput('\\tan(')">tan</button>
+</div>
+
+<script>
+    let currentExpression = '';
+
+    function appendToOutput(symbol) {
+        currentExpression += symbol;
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const display = document.getElementById('mathDisplay');
+        katex.render(currentExpression, display);
+        document.getElementById('mathOutput').value = currentExpression;
+    }
+
+    function clearOutput() {
+        currentExpression = '';
+        updateDisplay();
+    }
+
+    function calculate() {
+        try {
+            const result = eval(currentExpression.replaceAll('^', '**'));
+            currentExpression = String(result);
+            updateDisplay();
+        } catch (e) {
+            alert('表达式不合法');
+            clearOutput();
+        }
+    }
+</script>
+
+</body>
+</html>

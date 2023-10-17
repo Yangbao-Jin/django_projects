@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>门电路图形</title>
+  <!-- 引入 D3.js 库文件 -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    /* 样式表，可根据需要自定义 */
+    .gate {
+      fill: #009688;
+      stroke: #00766c;
+    }
+  </style>
+</head>
+<body>
+  <h2>门电路图形</h2>
+  <div id="circuit-container"></div>
+
+  <script>
+    // 创建门电路图形
+    function createCircuit() {
+      var width = 400; // 图形宽度
+      var height = 200; // 图形高度
+
+      // 创建 SVG 画布
+      var svg = d3.select("#circuit-container")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      // 添加 AND 门
+      svg.append("rect")
+        .attr("x", 50)
+        .attr("y", 50)
+        .attr("width", 60)
+        .attr("height", 60)
+        .attr("class", "gate");
+
+      // 添加 OR 门
+      svg.append("ellipse")
+        .attr("cx", 200)
+        .attr("cy", 80)
+        .attr("rx", 30)
+        .attr("ry", 40)
+        .attr("class", "gate");
+
+      // 添加连接线
+      svg.append("line")
+        .attr("x1", 110)
+        .attr("y1", 80)
+        .attr("x2", 170)
+        .attr("y2", 80)
+        .attr("stroke", "#000");
+
+      // 添加文本标签
+      svg.append("text")
+        .attr("x", 70)
+        .attr("y", 130)
+        .text("AND");
+
+      svg.append("text")
+        .attr("x", 190)
+        .attr("y", 150)
+        .text("OR");
+    }
+
+    // 调用创建门电路图形的函数
+    createCircuit();
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布尔表达式计算器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/boolean-reduce@1.1.0/index.js"></script>
+    <style>
+        button {
+            width: 80px;
+            height: 50px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .display {
+            min-height: 60px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="display" id="boolDisplay"></div>
+<textarea id="boolOutput" style="width:300px; height:60px;"></textarea>
+
+<div>
+    <button onclick="appendToOutput('A')">A</button>
+    <button onclick="appendToOutput('B')">B</button>
+    <button onclick="appendToOutput('C')">C</button>
+    <br>
+    <button onclick="appendToOutput(' & ')">AND</button>
+    <button onclick="appendToOutput(' | ')">OR</button>
+    <button onclick="appendToOutput('~')">NOT</button>
+    <br>
+    <button onclick="simplifyExpression()">化简</button>
+    <button onclick="clearOutput()">清除</button>
+</div>
+
+<script>
+    let currentExpression = '';
+
+    function appendToOutput(symbol) {
+        currentExpression += symbol;
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        document.getElementById('boolOutput').value = currentExpression;
+    }
+
+    function clearOutput() {
+        currentExpression = '';
+        updateDisplay();
+        const display = document.getElementById('boolDisplay');
+        display.innerHTML = '';
+    }
+
+    function simplifyExpression() {
+        try {
+            const simplifiedExpression = booleanReduce(currentExpression);
+            const latexExpression = simplifiedExpression.replace(/&/g, ' \\land ').replace(/\|/g, ' \\lor ').replace(/~/g, '\\neg ');
+            const display = document.getElementById('boolDisplay');
+            katex.render(latexExpression, display);
+        } catch (e) {
+            console.error(e);
+            alert("发生错误: " + e.message);
+        }
+    }
+
+</script>
+
+</body>
+</html>

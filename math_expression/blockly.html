@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blockly 示例程序</title>
+  <!-- 引入 Blockly 库 -->
+  <script src="https://cdn.jsdelivr.net/npm/mxgraph@3.10.2/javascript/mxClient.js"></script>
+
+
+</head>
+<body>
+  <!-- 包含 Blockly 工作区的容器 -->
+  <div id="blocklyDiv" style="height: 400px; width: 100%;"></div>
+  <!-- 包含生成的代码的容器 -->
+  <pre id="codeOutput"></pre>
+
+  <!-- 加载 Blockly 工作区 -->
+  <script>
+    var workspace = Blockly.inject('blocklyDiv', {
+      toolbox: '<xml>' +
+                '<block type="math_number"></block>' +
+                '<block type="math_arithmetic"></block>' +
+              '</xml>'
+    });
+  </script>
+</body>
+</html>

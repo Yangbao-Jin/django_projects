@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时数学公式输入</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css">
+    <style>
+        #mathOutput {
+            border: 1px solid #ccc;
+            min-height: 50px;
+            padding: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mathOutput"></div>
+
+<div>
+    <button onclick="appendToMath('\\pi')">π</button>
+    <button onclick="appendToMath('+')">+</button>
+    <button onclick="appendToMath('-')">&#8722;</button>
+    <button onclick="appendToMath('\\times')">&#215;</button>
+    <button onclick="appendToMath('\\div')">&#247;</button>
+    <button onclick="appendToMath('^')">^</button>
+    <button onclick="appendToMath('\\sqrt{}')">√</button>
+    <!-- 可以继续添加其他按钮 -->
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
+<script>
+    (function() {
+        var MQ = MathQuill.getInterface(2);
+        var mathField = MQ.MathField(document.getElementById('mathOutput'), {
+            spaceBehavesLikeTab: true,
+            handlers: {
+                edit: function() {
+                    // 可以在此添加其他的处理方法，例如保存数学公式等
+                }
+            }
+        });
+
+        window.appendToMath = function(symbol) {
+            var currentLatex = mathField.latex();
+            mathField.latex(currentLatex + symbol);
+            mathField.focus();
+        }
+    })();
+</script>
+</body>
+</html>

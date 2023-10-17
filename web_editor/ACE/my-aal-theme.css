@@ -1,0 +1,48 @@
+/* my-aal-theme.css */
+
+.my-editor {
+    width: 500px;
+    height: 500px;
+    border: 1px solid #ccc;
+}
+
+/* 其他样式规则 */
+
+/* 为错误信息区域添加样式 */
+#debug-output {
+    color: red;
+}
+
+/* 注释颜色 */
+.ace_comment {
+    color: green;
+}
+
+/* 自定义关键字颜色 */
+.ace_keyword-load,
+.ace_keyword-store,
+.ace_keyword-add,
+.ace_keyword-sub,
+.ace_keyword-mult,
+.ace_keyword-div,
+.ace_keyword-bg,
+.ace_keyword-be,
+.ace_keyword-bl,
+.ace_keyword-bu,
+.ace_keyword-read,
+.ace_keyword-print,
+.ace_keyword-dc,
+.ace_keyword-end {
+    color: red;
+}
+
+/* 行标签颜色 */
+.ace_label {
+    color: purple;
+}
+
+/* 变量和数字颜色 */
+.ace_variable,
+.ace_number {
+    color: blue;
+}

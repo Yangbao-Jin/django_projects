@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 引用 Ace Editor 的资源文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.js"></script>
+</head>
+<body>
+    <!-- 创建 Ace Editor 实例 -->
+    <div id="editor" style="width: 700px; height: 500px;"></div>
+    <script>
+        // 创建 Ace Editor 实例
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/python");
+        editor.session.setValue("Hello, World!");
+
+        // 添加 linting 功能
+        editor.getSession().on("changeAnnotation", function() {
+            var annotations = [];
+            customLint(editor.session, annotations);
+            editor.getSession().setAnnotations(annotations);
+        });
+
+        function customLint(session, annotations) {
+            var code = session.getValue(); // 获取编辑会话中的代码内容
+            var lines = code.split('\n'); // 将代码分割成行
+
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].trim(); // 去除行首和行尾的空格
+
+                // 检查是否存在非法指令
+                if (!isValidInstruction(line)) {
+                    annotations.push({
+                        row: i, // 行号
+                        column: 0, // 列号
+                        text: "非法指令: " + line, // 问题描述
+                        type: "error" // 错误类型
+                    });
+                }
+
+                // 检查是否正确使用标签和LOC
+                if (!isValidLabelUsage(line)) {
+                    annotations.push({
+                        row: i,
+                        column: 0,
+                        text: "标签或LOC使用错误: " + line,
+                        type: "error"
+                    });
+                }
+
+                // 更多规则检查可以在这里添加
+            }
+        }
+
+        function isValidInstruction(line) {
+            // 检查指令是否在有效的列表中
+            var validInstructions = ["LOAD", "STORE", "ADD", "SUB", "MULT", "DIV", "BG", "BE", "BL", "BU", "READ", "PRINT", "DC", "END"];
+            return validInstructions.includes(line.split(/\s+/)[0]);
+        }
+
+        function isValidLabelUsage(line) {
+            // 检查标签和LOC的使用是否正确
+            var parts = line.split(/\s+/);
+            var opcode = parts[0];
+
+            if (opcode === "DC" && parts.length < 2) {
+                // DC 指令需要一个标签
+                return false;
+            }
+
+            if (["BG", "BE", "BL", "BU"].includes(opcode) && parts.length !== 2) {
+                // 分支指令需要一个标签
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

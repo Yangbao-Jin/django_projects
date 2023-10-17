@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布尔表达式输入器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js"></script>
+    <style>
+        button {
+            width: 80px;
+            height: 50px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .display {
+            min-height: 60px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="display" id="boolDisplay"></div>
+<textarea id="boolOutput" style="width:300px; height:60px;"></textarea>
+
+<div>
+    <button onclick="appendToOutput('A')">A</button>
+    <button onclick="appendToOutput('B')">B</button>
+    <button onclick="appendToOutput('C')">C</button>
+    <br>
+    <button onclick="appendToOutput(' AND ')">AND</button>
+    <button onclick="appendToOutput(' OR ')">OR</button>
+    <button onclick="appendToOutput('NOT ')">NOT</button>
+    <br>
+    <button onclick="clearOutput()">清除</button>
+</div>
+
+<script>
+    let currentExpression = '';
+
+    function appendToOutput(symbol) {
+        currentExpression += symbol;
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        document.getElementById('boolOutput').value = currentExpression;
+        const display = document.getElementById('boolDisplay');
+        katex.render(currentExpression, display);
+    }
+
+    function clearOutput() {
+        currentExpression = '';
+        updateDisplay();
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>KaTeX 输入和渲染数学公式示例</title>
+    <!-- 引入 KaTeX CSS 文件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+
+    <!-- 引入 KaTeX JavaScript 文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script
+<body>
+
+<div id="mathOutput"></div>
+
+<div>
+    <button onclick="appendToMath('π')">π</button>
+    <button onclick="appendToMath('+')">+</button>
+    <button onclick="appendToMath('-')">−</button>
+    <button onclick="appendToMath('\\times')">×</button>
+    <button onclick="appendToMath('\\div')">÷</button>
+    <button onclick="appendToMath('^')">^</button>
+    <button onclick="appendToMath('\\sqrt{}')">√</button>
+</div>
+
+<script>
+    let currentExpression = '';
+
+    function appendToMath(symbol) {
+        currentExpression += symbol;
+        updateOutput();
+    }
+
+    function updateOutput() {
+        katex.render(currentExpression, document.getElementById('mathOutput'));
+    }
+</script>
+
+    </body>
+
+</html>

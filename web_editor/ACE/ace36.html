@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AAL Language Editor</title>
+    <!-- 引入 Ace Editor 的资源文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="./mode-aal.js"></script>
+    <script src="./mode-custom.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./my-aal-theme.css">
+</head>
+<body>
+    <!-- 创建 Ace Editor 实例 -->
+    <div id="editor" class="my-editor"></div>
+    <!-- 显示错误信息的区域 -->
+    <div id="debug-output"></div>
+    <script>
+        // 创建 Ace Editor 实例
+        var editor = ace.edit("editor");
+        editor.session.setMode("ace/mode/aal"); // 使用自定义模式
+        editor.container.classList.add("ace-custom");
+        ace.config.setModuleUrl("ace/mode/aal", "./mode-aal.js");
+
+        
+
+        // 设置自定义主题
+        ace.config.setModuleUrl("ace/theme/my-aal-theme", "./my-aal-theme.css");
+        editor.setTheme("ace/theme/my-aal-theme");
+
+        // 监听编辑器内容变化
+        editor.on("change", function () {
+            // 清空错误信息区域
+            document.getElementById("debug-output").innerHTML = "";
+            var code = editor.getValue();
+
+            // 运行自定义 lint 函数
+            customLint(code);
+        });
+
+        function customLint(code) {
+            var lines = code.split('\n');
+            var errors = [];
+
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].trim().toUpperCase(); // 转换为大写
+
+                // 检查行是否为空行或注释行
+                if (line === "" || line.startsWith("//")) {
+                    continue; // 跳过空行和注释行
+                }
+
+                // 使用正则表达式匹配可选标签、指令和变量
+                var match = /^(\w+\s+)?(\w+)\s+(.*)$/.exec(line);
+                if (match) {
+                    var label = match[1] || "";
+                    var instruction = match[2];
+                    var variable = match[3];
+
+                    if (instruction !== "END" && !isValidInstruction(instruction)) {
+                        errors.push({
+                            row: i,
+                            column: 0,
+                            text: "非法指令: " + instruction,
+                            type: "error"
+                        });
+                    }
+                } else if (line !== "END" && line !== "END ") {
+                    errors.push({
+                        row: i,
+                        column: 0,
+                        text: "无效格式: " + line,
+                        type: "error"
+                    });
+                }
+            }
+
+            // 显示错误信息
+            var debugOutput = document.getElementById("debug-output");
+            for (var i = 0; i < errors.length; i++) {
+                var error = errors[i];
+                debugOutput.innerHTML += "错误类型: " + error.type + "<br>行数: " + (error.row + 1) + "<br>列数: " + error.column + "<br>描述: " + error.text + "<hr>";
+            }
+        }
+
+        function isValidInstruction(instruction) {
+            // 检查指令是否在有效的列表中（转换为大写后比较）
+            var validInstructions = ["LOAD", "STORE", "ADD", "SUB", "MULT", "DIV", "BG", "BE", "BL", "BU", "READ", "PRINT", "DC", "END"];
+            return validInstructions.includes(instruction);
+        }
+    </script>
+</body>
+</html>

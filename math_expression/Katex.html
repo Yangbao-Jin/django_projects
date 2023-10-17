@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KaTeX 输入和渲染数学公式示例</title>
+    <!-- 引入 KaTeX CSS 文件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+
+    <!-- 引入 KaTeX JavaScript 文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+</head>
+<body>
+    <!-- 输入 LaTeX 数学公式的输入框 -->
+    <input type="text" id="latex-input" placeholder="输入 LaTeX 数学公式">
+
+    <!-- 显示渲染后数学公式的区域 -->
+    <div id="rendered-equation" style="font-size: 24px;"></div>
+
+    <!-- JavaScript 代码，处理用户输入并渲染数学公式 -->
+    <script>
+        // 获取输入框和输出区域的元素
+        var latexInput = document.getElementById('latex-input');
+        var renderedEquation = document.getElementById('rendered-equation');
+
+        // 监听输入框的变化事件
+        latexInput.addEventListener('input', function() {
+            // 获取用户输入的 LaTeX 数学公式
+            var userInput = latexInput.value;
+
+            try {
+                // 使用 KaTeX 渲染 LaTeX 数学公式并插入到输出区域
+                katex.render(userInput, renderedEquation);
+            } catch (error) {
+                // 渲染错误处理
+                renderedEquation.textContent = '无效的 LaTeX 数学公式';
+            }
+        });
+    </script>
+</body>
+</html>
+

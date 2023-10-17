@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logic Gates</title>
+</head>
+<body>
+    <canvas id="canvas" width="200" height="100"></canvas>
+    <script>
+        // 获取 canvas 元素和 2D 上下文
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 绘制与门
+        function drawANDGate() {
+            ctx.beginPath();
+            ctx.arc(40, 30, 20, 0, Math.PI * 2);
+            ctx.moveTo(20, 30);
+            ctx.lineTo(30, 30);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        // 绘制或门
+        function drawORGate() {
+            ctx.beginPath();
+            ctx.arc(80, 30, 20, -Math.PI / 2, Math.PI / 2);
+            ctx.moveTo(60, 20);
+            ctx.lineTo(60, 40);
+            ctx.moveTo(60, 20);
+            ctx.arc(60, 30, 10, -Math.PI / 2, Math.PI / 2, false);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        // 绘制非门
+        function drawNOTGate() {
+            ctx.beginPath();
+            ctx.arc(120, 30, 20, 0, Math.PI * 2);
+            ctx.moveTo(120, 30);
+            ctx.lineTo(130, 30);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        // 调用绘制函数
+        drawANDGate();
+        drawORGate();
+        drawNOTGate();
+    </script>
+</body>
+</html>

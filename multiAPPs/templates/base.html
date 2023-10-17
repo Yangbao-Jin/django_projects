@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--{% load static %}-->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <!-- 可以在这里添加全局的CSS或JavaScript文件，例如： -->
+
+  </head>
+
+  <body>
+    <header>
+      <h1>Welcome to My Project</h1>
+    </header>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer>
+      <p>Copyright &copy; 2023 My Project</p>
+    </footer>
+
+    <div style="text-align: right; margin-right: 20px">
+      {% if user.is_authenticated %} 欢迎，{{ user.username }}！
+      <a href="{% url 'logout' %}">退出</a>
+      {% else %}
+      <a href="{% url 'login' %}">登录</a>
+      {% endif %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+/* 自定义 Ace Editor 主题 - my-aal-theme.css */
+
+/* 编辑器容器 */
+.ace-custom {
+    width: 40%;
+    height: 300px/* 设置编辑器高度 */
+}
+
+/* 文本编辑区域 */
+.ace_editor.ace-custom .ace_content {
+    background-color: #fff; /* 设置编辑区域的背景颜色 */
+    color: #4b0ac2; /* 设置文本颜色 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    font-size: medium;
+}
+
+/* 选择区域样式 */
+.ace_editor.ace-custom .ace_selection {
+    background-color: #0074d9; /* 设置选中文本的背景颜色 */
+    color: #e4ecea; /* 设置选中文本的文本颜色 */
+}
+
+/* 代码折叠样式 */
+.ace_editor.ace-custom .ace_fold {
+    background-color: #979090; /* 设置代码折叠的背景颜色 */
+    color: #000; /* 设置折叠文本颜色 */
+}
+
+/* 行号样式 */
+.ace_editor.ace-custom .ace_gutter {
+    background-color: #f2f2f2; /* 设置行号区域的背景颜色 */
+    color: #000; /* 设置行号文本颜色 */
+}
+
+/* 语法高亮样式 - 例如：关键字、注释等 */
+.ace-custom .ace_keyword {
+    color: #b80826 !important; /* 设置关键字颜色 */
+    font-size: large;
+}
+
+.ace_editor.ace-custom .ace_comment {
+    color: #6d5757; /* 设置注释颜色 */
+}
+
+/* 更多样式规则可自行添加... */

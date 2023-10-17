@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./codemirror5/lib/codemirror.css">
+</head>
+<body>
+    <div id="editor"></div>
+
+    <script type="module" src="./codemirror5/src/edit/CodeMirror.js"></script>
+
+    <script type="module">
+        // 在这里使用 ES6 模块语法加载 CodeMirror 和其他模块
+        import CodeMirror from 'codemirror';
+        import 'codemirror/lib/codemirror.css';
+        // 在页面加载完毕后初始化 CodeMirror 编辑器
+        document.addEventListener("DOMContentLoaded", function() {
+            var editor = CodeMirror(document.getElementById("editor"), {
+                mode: "javascript", // 设置编辑器的语言模式
+                theme: "default",   // 设置编辑器的主题
+                // 其他配置选项...
+            });
+        });
+    </script>
+    <p>Hello</p>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>门电路图编辑器</title>
+  <!-- 引入mxGraph库 -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mxgraph@1.0.0/javascript/mxClient.js"></script>
+
+</head>
+<body>
+  <h2>门电路图编辑器</h2>
+  <div id="graphContainer" style="width: 800px; height: 400px; border: 1px solid #ccc;"></div>
+  <button onclick="addAndGate()">添加 AND 门</button>
+  <button onclick="addOrGate()">添加 OR 门</button>
+  <button onclick="addNotGate()">添加 NOT 门</button>
+  <button onclick="addConnection()">添加连接</button>
+
+  <script>
+    // 创建一个 mxGraph 实例
+    var graph = new mxGraph(document.getElementById('graphContainer'));
+
+    // 创建一个图形模型
+    var model = graph.getModel();
+
+    // 创建图形编辑器工具函数
+    function addAndGate() {
+      var andGate = new mxCell('AND', new mxGeometry(0, 0, 60, 60), 'shape=and');
+      andGate.setVertex(true);
+      addCell(andGate, 100, 100);
+    }
+
+    function addOrGate() {
+      var orGate = new mxCell('OR', new mxGeometry(0, 0, 60, 60), 'shape=or');
+      orGate.setVertex(true);
+      addCell(orGate, 100, 100);
+    }
+
+    function addNotGate() {
+      var notGate = new mxCell('NOT', new mxGeometry(0, 0, 60, 60), 'shape=not');
+      notGate.setVertex(true);
+      addCell(notGate, 100, 100);
+    }
+
+    function addConnection() {
+      var parent = graph.getDefaultParent();
+      var v1 = graph.getChildVertices(parent)[0];
+      var v2 = graph.getChildVertices(parent)[1];
+      var edge = graph.insertEdge(parent, null, '', v1, v2);
+    }
+
+    function addCell(cell, x, y) {
+      graph.getModel().beginUpdate();
+      try {
+        var parent = graph.getDefaultParent();
+        graph.addCell(cell, parent);
+        cell.geometry.x = x;
+        cell.geometry.y = y;
+      } finally {
+        graph.getModel().endUpdate();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布尔表达式计算器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js"></script>
+    <style>
+        button {
+            width: 80px;
+            height: 50px;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .display {
+            min-height: 60px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="display" id="boolDisplay"></div>
+<textarea id="boolOutput" style="width:300px; height:60px;"></textarea>
+
+<!-- Add an <img> element to display the circuit image -->
+<img id="circuitImage" src="" alt="Circuit Image" style="max-width: 400px; max-height: 400px; margin-top: 10px;">
+
+<div>
+    <button onclick="appendToOutput('A')">A</button>
+    <button onclick="appendToOutput('B')">B</button>
+    <button onclick="appendToOutput('C')">C</button>
+    <button onclick="appendToOutput('D')">D</button>
+    <button onclick="appendToOutput('E')">E</button>
+    <button onclick="appendToOutput('F')">F</button>
+    <button onclick="appendToOutput('0')">0</button>
+    <button onclick="appendToOutput('1')">1</button>
+    <br>
+    <button onclick="appendToOutput(' & ')">AND</button>
+    <button onclick="appendToOutput(' | ')">OR</button>
+    <button onclick="appendToOutput('~')">NOT</button>
+    <button onclick="appendToOutput(' ^ ')">XOR</button>
+    <button onclick="appendToOutput('(')">(</button>
+    <button onclick="appendToOutput(')')">)</button>
+    <br>
+    <button onclick="simplifyExpression()">化简</button>
+    <button onclick="clearOutput()">清除</button>
+</div>
+
+<script>
+    let currentExpression = '';
+
+    function appendToOutput(symbol) {
+        currentExpression += symbol;
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        document.getElementById('boolOutput').value = currentExpression;
+    }
+
+    function clearOutput() {
+        currentExpression = '';
+        updateDisplay();
+        const display = document.getElementById('boolDisplay');
+        display.innerHTML = '';
+    }
+
+    async function simplifyExpression() {
+        try {
+            const response = await fetch("/api/simplify/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `expression=${encodeURIComponent(currentExpression)}`
+            });
+            const data = await response.json();
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            const simplifiedExpression = data.result;
+            const latexExpression = simplifiedExpression;  // Convert as necessary for KaTeX
+            const display = document.getElementById('boolDisplay');
+            katex.render(latexExpression, display);
+
+            // Update the circuit image src
+            const circuitImage = document.getElementById('circuitImage');
+            circuitImage.src = `data:image/png;base64,${data.circuit_image}`;
+        } catch (e) {
+            console.error(e);
+            alert("发生错误: " + e.message);
+        }
+    }
+</script>
+
+</body>
+</html>

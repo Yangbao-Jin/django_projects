@@ -1,0 +1,13 @@
+span {
+    border: 1px solid black;
+    background-color: lime;
+  }
+
+#map_canvas{
+    height: 400px;
+    width: 100%;
+}
+
+
+
+

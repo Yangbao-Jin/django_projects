@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ article.title }}</h2>
+    <p>Written by: {{ article.author.username }}</p>
+    <p>Published on: {{ article.published_date }}</p>
+    <hr>
+    <div>
+        {{ article.content|linebreaks }}
+    </div>
+    <hr>
+    <a href="{% url 'articles:list' %}">Back to Articles List</a>
+{% endblock %}
