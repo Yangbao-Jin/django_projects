@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyMCE Integration</title>
+    <!-- Include TinyMCE library -->
+    <script src="https://cdn.tiny.cloud/1/3zz6hgmuz7l3znh8hzz3ma6ex0yeqs2kjbvqh1qm02ab3bki/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="./myLang.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            plugins: 'mathtype',
+            toolbar: 'mathtype'
+        });
+
+        function handleSubmit() {
+            // 获取 TinyMCE 的内容
+            var expression = tinymce.get('mytextarea').getContent();
+            
+            // 这里可以进行任何必要的处理或格式转换
+            // ...
+
+            // 将处理后的表达式传递给目标工具
+            // 这只是一个示例，实际实现取决于你选择的工具
+            // 例如，如果工具有一个 API，你可以使用 AJAX 调用它
+            // 或者，如果工具是一个命令行工具，你可能需要在服务器端执行它
+            passToTool(expression);
+        }
+
+        function passToTool(expression) {
+            // 这只是一个示例函数，实际实现取决于你选择的工具
+            console.log("Passing expression to tool:", expression);
+            // ...
+        }
+    </script>
+</head>
+<body>
+    <h1>Enter Boolean Expression</h1>
+    <textarea id="mytextarea"></textarea>
+    <button onclick="handleSubmit()">Submit</button>
+</body>
+</html> 

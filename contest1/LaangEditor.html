@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Language Syntax Check with TinyMCE</title>
+    <script src="https://cdn.tiny.cloud/1/3zz6hgmuz7l3znh8hzz3ma6ex0yeqs2kjbvqh1qm02ab3bki/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <script src="./myLang.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            plugins: 'code',
+            toolbar: 'code',
+            setup: function(editor) {
+                var currentCode = ""; // 用于存储当前编辑的代码
+
+                editor.on('keydown', function(e) {
+                    if (e.key === 'Enter') { // 如果按下回车键
+                        try {
+                            MyLangParser.parse(currentCode + '\n'); // 检查当前行的代码（包括回车键）
+                            editor.getBody().style.backgroundColor = "#DFF2BF"; // Green
+                        } catch (error) {
+                            editor.getBody().style.backgroundColor = "#FFD2D2"; // Red
+                        }
+                        
+                        currentCode = ""; // 清空当前行的内容，准备下一行
+                    } else {
+                        // 按下回车键之前，将当前输入附加到currentCode
+                        currentCode += e.key;
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <textarea id="mytextarea"></textarea>
+</body>
+</html>

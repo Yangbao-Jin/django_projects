@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TinyMCE Custom Code Highlighting</title>
+    <script src="https://cdn.tiny.cloud/1/3zz6hgmuz7l3znh8hzz3ma6ex0yeqs2kjbvqh1qm02ab3bki/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" href="customHighlight.css"> <!-- 引入自定义样式表 -->
+    <script src="customHighlightPlugin.js"></script> <!-- 引入自定义插件 -->
+</head>
+<body>
+    <script>
+        // 初始化 TinyMCE 编辑器
+        tinymce.init({
+            selector: '#mytextarea',
+            plugins: 'customhighlight', // 启用自定义插件
+            toolbar: 'highlightcode', // 启用高亮按钮
+            content_css: 'customHighlight.css', // 引入样式表
+        });
+    </script>
+    
+    <h1>TinyMCE Custom Code Highlighting</h1>
+    <textarea id="mytextarea"></textarea>
+
+    
+</body>
+</html>

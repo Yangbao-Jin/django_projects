@@ -1,0 +1,13 @@
+/* customHighlight.css */
+
+.label {
+    color: purple;
+}
+
+.opcode {
+    color: green;
+}
+
+.location {
+    color: blue;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Language Syntax Check with TinyMCE</title>
+    <script src="https://cdn.tiny.cloud/1/3zz6hgmuz7l3znh8hzz3ma6ex0yeqs2kjbvqh1qm02ab3bki/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+        
+    <style>
+        .error-line {
+            background-color: #FFD2D2 !important;
+        }
+        .valid-line {
+            background-color: #DFF2BF !important;
+        }
+    </style>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            plugins: 'code',
+            toolbar: 'code',
+            setup: function(editor) {
+                var currentCode = ""; // 用于存储当前编辑的代码
+                var currentLine = 0; // 用于跟踪当前行数
+
+                editor.on('keydown', function(e) {
+                    if (e.key === 'Enter') { // 如果按下回车键
+                        try {
+                            MyLangParser.parse(currentCode + '\n'); // 检查当前行的代码（包括回车键）
+                            var lines = editor.getContent({ format: 'text' }).split('\n');
+                            var currentLineText = lines[currentLine]; // 获取当前行的文本
+                            // 根据文本找到当前行的DOM元素并设置背景颜色为绿色
+                            var lineElements = editor.getBody().querySelectorAll('.mce-txt');
+                            for (var i = 0; i < lineElements.length; i++) {
+                                if (lineElements[i].textContent === currentLineText) {
+                                    lineElements[i].style.backgroundColor = '#DFF2BF'; // 设置背景颜色为绿色
+                                }
+                            }
+                        } catch (error) {
+                            var lineElements = editor.getBody().querySelectorAll('.mce-txt');
+                            // 根据当前行号设置背景颜色为红色
+                            lineElements[currentLine].style.backgroundColor = '#FFD2D2'; // 设置背景颜色为红色
+                        }
+                        
+                        currentCode = ""; // 清空当前行的内容，准备下一行
+                        currentLine++; // 增加当前行数
+                    } else {
+                        // 按下回车键之前，将当前输入附加到currentCode
+                        currentCode += e.key;
+                    }
+                });
+                
+            }
+        });
+    </script>
+</head>
+<body>
+    <textarea id="mytextarea"></textarea>
+</body>
+</html>
